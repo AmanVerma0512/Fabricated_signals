@@ -4,5 +4,6 @@ numpy
 pandas
 scipy
 gspread
+oauth2client
 boto3
 pyyaml
