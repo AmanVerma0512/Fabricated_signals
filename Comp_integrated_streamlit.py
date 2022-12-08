@@ -426,7 +426,7 @@ if flag == True:
             st.write("Total Power/Area: " + str(round(stamina2['subScores']['area stamina']['meta']['total power/area'],2)))
             st.write("Length: " + str(round(stamina2['subScores']['area stamina']['meta']['length'],2)))
             st.write("Ideal Power/Reference x Length: " + str(round(stamina2['subScores']['area stamina']['meta']['ideal power/reference x length'],2)))
-
+        
         with col12:
             st.write("FORM META VALUES")
             st.write("A. Sudden Release")
@@ -445,58 +445,58 @@ if flag == True:
 # In[36]:
 
 
-scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',
-             "https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',
+                     "https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 
-cred = {
-  "type": st.secrets["type_s"],
-  "project_id": st.secrets["project_id_s"],
-  "private_key_id": st.secrets["private_key_id_s"],
-  "private_key": st.secrets["private_key_s"],
-  "client_email": st.secrets["client_email_s"],
-  "client_id": st.secrets["client_id_s"],
-  "auth_uri": st.secrets["auth_uri_s"],
-  "token_uri": st.secrets["token_uri_s"],
-  "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url_s"],
-  "client_x509_cert_url": st.secrets["client_x509_cert_url_s"]}
+        cred = {
+          "type": st.secrets["type_s"],
+          "project_id": st.secrets["project_id_s"],
+          "private_key_id": st.secrets["private_key_id_s"],
+          "private_key": st.secrets["private_key_s"],
+          "client_email": st.secrets["client_email_s"],
+          "client_id": st.secrets["client_id_s"],
+          "auth_uri": st.secrets["auth_uri_s"],
+          "token_uri": st.secrets["token_uri_s"],
+          "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url_s"],
+          "client_x509_cert_url": st.secrets["client_x509_cert_url_s"]}
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(cred, scope)
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(cred, scope)
 
-client = gspread.authorize(credentials)
-# Open the spreadhseet
-sheet_fd = client.open("Signal Comparison Feedback").worksheet("Feedback")
-
-
-# In[37]:
+        client = gspread.authorize(credentials)
+        # Open the spreadhseet
+        sheet_fd = client.open("Signal Comparison Feedback").worksheet("Feedback")
 
 
-st.subheader("Model Feedback")
-signal_id = st.selectbox('Select a Signal ID', ["Test"],key="signal_id_m")
-st.caption("You Selected " + str(signal_id)+"!")
-st.write("Please Provide Your Feedback on the Following Scores!")
-input_options = ["High","Optimal","Low"]
+        # In[37]:
 
-col13, col14, col15 = st.columns(3)
 
-with col13:
-    ex = st.radio("Explosiveness",input_options, horizontal = True, key = "ex")
-    po = st.radio("Power",input_options, horizontal = True, key = "po")
-    np = st.radio("Net Power",input_options, horizontal = True, key = "np")
+        st.subheader("Model Feedback")
+        signal_id = st.selectbox('Select a Signal ID', ["Test"],key="signal_id_m")
+        st.caption("You Selected " + str(signal_id)+"!")
+        st.write("Please Provide Your Feedback on the Following Scores!")
+        input_options = ["High","Optimal","Low"]
 
-with col14:
-    tt = st.radio("Total Time",input_options, horizontal = True, key = "tt")
-    ar = st.radio("Area Stamina",input_options, horizontal = True, key = "ar")
-    ns = st.radio("Net Stamina",input_options, horizontal = True, key = "ns")
+        col13, col14, col15 = st.columns(3)
 
-with col15:
-    sr = st.radio("Sudden Release",input_options, horizontal = True, key = "sr")
-    te = st.radio("Tempo",input_options, horizontal = True, key = "te")
-    ji = st.radio("Jitter",input_options, horizontal = True, key = "ji")
-    nf = st.radio("Net Form Score",input_options, horizontal = True, key = "nf")
+        with col13:
+            ex = st.radio("Explosiveness",input_options, horizontal = True, key = "ex")
+            po = st.radio("Power",input_options, horizontal = True, key = "po")
+            np = st.radio("Net Power",input_options, horizontal = True, key = "np")
 
-ac = st.text_input("Additional Comments", key = "ac")
+        with col14:
+            tt = st.radio("Total Time",input_options, horizontal = True, key = "tt")
+            ar = st.radio("Area Stamina",input_options, horizontal = True, key = "ar")
+            ns = st.radio("Net Stamina",input_options, horizontal = True, key = "ns")
 
-if st.button("Save Feedback",key="Save_Feedback"):
-    sheet_fd.append_row([signal_id,signal_a,signal_b,ex,po,np,tt,ar,ns,sr,te,ji,nf,ac],value_input_option="USER_ENTERED")
-    st.write("Sample Appended for: " + str(signal_id) + " to Database! Please Add the next Sample!")    
+        with col15:
+            sr = st.radio("Sudden Release",input_options, horizontal = True, key = "sr")
+            te = st.radio("Tempo",input_options, horizontal = True, key = "te")
+            ji = st.radio("Jitter",input_options, horizontal = True, key = "ji")
+            nf = st.radio("Net Form Score",input_options, horizontal = True, key = "nf")
+
+        ac = st.text_input("Additional Comments", key = "ac")
+
+        if st.button("Save Feedback",key="Save_Feedback"):
+            sheet_fd.append_row([signal_id,signal_a,signal_b,ex,po,np,tt,ar,ns,sr,te,ji,nf,ac],value_input_option="USER_ENTERED")
+            st.write("Sample Appended for: " + str(signal_id) + " to Database! Please Add the next Sample!")    
 
