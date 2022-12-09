@@ -471,7 +471,7 @@ sheet_fd = client.open("Signal Comparison Feedback").worksheet("Feedback")
 
 
 st.subheader("Model Feedback")
-signal_id = st.selectbox('Select a Signal ID', ["Test"],key="signal_id_m")
+signal_id = st.selectbox('Select a Signal ID', name_fields_array,key="signal_id_m")
 st.caption("You Selected " + str(signal_id)+"!")
 st.write("Please Provide Your Feedback on the Following Scores!")
 input_options = ["High","Optimal","Low"]
