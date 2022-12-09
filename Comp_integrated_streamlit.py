@@ -460,7 +460,7 @@ cred = {
 "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url_s"],
 "client_x509_cert_url": st.secrets["client_x509_cert_url_s"]}
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(str(cred), scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(cred, scope)
 
 client = gspread.authorize(credentials)
 # Open the spreadhseet
